@@ -6,4 +6,11 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
-export default app
+interface Env { }
+
+export default {
+  fetch: app.fetch,
+  async scheduled() {
+    console.log("hi!")
+  },
+}

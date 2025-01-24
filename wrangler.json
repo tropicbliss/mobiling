@@ -16,5 +16,10 @@
       "database_id": "6528139b-ee9d-4677-aa03-760f6ea2758f"
     }
   ],
-  "route": "mobileapi.skibiditoilet.meme"
+  "route": "mobileapi.skibiditoilet.meme",
+  // "triggers": {
+  //   "crons": [
+  //     "* * * * *"
+  //   ]
+  // }
 }
