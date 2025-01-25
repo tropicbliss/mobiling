@@ -23,7 +23,7 @@ app.get(
   vValidator('query', querySchema),
   (c) => {
     const query = c.req.valid('query');
-    return c.text("Hello");
+    return c.text(`Hello ${query?.name ?? 'Hono'}!`);
   }
 );
 
