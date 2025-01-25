@@ -15,4 +15,5 @@ export function addDocs(app: Hono<{
         })
     );
     app.get("/docs", swaggerUI({ url: "/openapi" }))
+    return app
 }

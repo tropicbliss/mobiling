@@ -27,9 +27,7 @@ app.get(
   }
 );
 
-addDocs(app)
-
 export default {
-  fetch: app.fetch,
+  fetch: addDocs(app).fetch,
   scheduled: handleScheduledTask
 }
