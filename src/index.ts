@@ -3,7 +3,7 @@ import { describeRoute } from 'hono-openapi';
 import { resolver, validator as vValidator } from 'hono-openapi/zod';
 import { addDocs } from './openapi';
 import { handleScheduledTask } from './scheduler';
-import { querySchema, responseSchema } from './dto';
+import { z } from "zod"
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 
@@ -15,12 +15,14 @@ app.get(
       200: {
         description: 'Successful response',
         content: {
-          'text/plain': { schema: resolver(responseSchema) },
+          'text/plain': { schema: resolver(z.string()) },
         },
       },
     },
   }),
-  vValidator('query', querySchema),
+  vValidator('query', z.object({
+    name: z.string().optional()
+  })),
   (c) => {
     const query = c.req.valid('query');
     return c.text(`Hello ${query?.name ?? 'Hono'}!`);
