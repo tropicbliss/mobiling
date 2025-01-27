@@ -7,27 +7,6 @@ import { createMiddleware } from 'hono/factory'
 import { hash, verify } from "argonia";
 import { sha1 } from "@oslojs/crypto/sha1";
 
-export const auth = createMiddleware<{
-    Variables: {
-        user: User,
-        session: Session
-    },
-    Bindings: CloudflareBindings
-}>(async (c, next) => {
-    let token = c.req.header("Authorization")
-    if (!token?.startsWith("Bearer ")) {
-        return c.text("", 401)
-    }
-    token = token.slice(7)
-    const { session, user } = await validateSessionToken(c.env.DB, token)
-    if (session === null) {
-        return c.text("", 401)
-    }
-    c.set("user", user)
-    c.set("session", session)
-    await next();
-})
-
 async function getUserFromEmail(db: D1Database, email: string): Promise<User | null> {
     const user = await getDb(db).select().from(users).where(eq(users.email, email))
     return user.length === 0 ? null : user[0]
@@ -158,7 +137,7 @@ async function createSession(db: D1Database, token: string, userId: number): Pro
     return session
 }
 
-async function validateSessionToken(db: D1Database, token: string): Promise<SessionValidationResult> {
+export async function validateSessionToken(db: D1Database, token: string): Promise<SessionValidationResult> {
     const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)))
     const result = await getDb(db).select({ user: users, session: sessions }).from(sessions).innerJoin(users, eq(sessions.userId, users.id)).where(eq(sessions.id, sessionId))
     if (result.length < 1) {

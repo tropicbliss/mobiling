@@ -4,7 +4,8 @@ import { resolver, validator as vValidator } from 'hono-openapi/zod';
 import { addDocs } from './openapi';
 import { handleScheduledTask } from './scheduler';
 import { z } from "zod"
-import { auth, login, signup, updatePassword, updateProfile } from './auth';
+import { login, signup, updatePassword, updateProfile, validateSessionToken } from './auth';
+import { bearerAuth } from 'hono/bearer-auth';
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 
@@ -101,7 +102,17 @@ app.post("/signup", describeRoute({
     })
   })
 
-app.use(auth)
+app.use(bearerAuth({
+  verifyToken: async (token, c) => {
+    const { session, user } = await validateSessionToken(c.env.DB, token)
+    if (session === null) {
+      return false
+    }
+    c.set("user", user)
+    c.set("session", session)
+    return true
+  }
+}))
 
 app.post("/updatepassword", describeRoute({
   description: 'Update password',
