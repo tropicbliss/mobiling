@@ -6,11 +6,12 @@ import auth from './handlers/auth';
 import user from './handlers/user';
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
+addDocs(app)
 app.route("/auth", auth)
 app.use(authMiddleware)
 app.route("/user", user)
 
 export default {
-  fetch: addDocs(app).fetch,
+  fetch: app.fetch,
   scheduled: handleScheduledTask
 }
