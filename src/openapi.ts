@@ -6,14 +6,14 @@ export function addDocs(app: Hono<{
     Bindings: CloudflareBindings;
 }>) {
     app.get(
-        '/openapi',
+        '/docs/openapi',
         openAPISpecs(app, {
             documentation: {
-                info: { title: 'Hono API', version: '1.0.0', description: 'Greeting API' },
+                info: { title: 'Mobile API' },
                 servers: [{ url: 'https://mobileapi.skibiditoilet.meme', description: 'Production Server' }],
             },
         })
     );
-    app.get("/docs", swaggerUI({ url: "/openapi" }))
+    app.get("/docs", swaggerUI({ url: "/docs/openapi" }))
     return app
 }

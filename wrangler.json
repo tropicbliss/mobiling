@@ -6,6 +6,7 @@
   "observability": {
     "enabled": true
   },
+  "compatibility_flags": ["nodejs_compat"],
   "placement": {
     "mode": "smart"
   },
@@ -22,8 +23,6 @@
     "pattern": "mobileapi.skibiditoilet.meme"
   },
   "triggers": {
-    "crons": [
-      "* * * * *"
-    ]
+    "crons": ["* * * * *"]
   }
 }

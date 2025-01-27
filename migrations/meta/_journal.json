@@ -8,6 +8,13 @@
       "when": 1737782510740,
       "tag": "0000_abandoned_patch",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1738003872732,
+      "tag": "0001_real_supernaut",
+      "breakpoints": true
     }
   ]
 }

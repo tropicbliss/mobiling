@@ -1,6 +1,15 @@
 import { Context } from 'hono';
-import { drizzle } from 'drizzle-orm/d1';
+import { drizzle, DrizzleD1Database } from 'drizzle-orm/d1';
 
-export function getDb(ctx: Context<{ Bindings: CloudflareBindings }>) {
-    return drizzle(ctx.env.DB)
+let drizzleInstance: (DrizzleD1Database<Record<string, never>> & {
+    $client: D1Database;
+}) | undefined;
+
+export function getDb(db: D1Database) {
+    if (drizzleInstance === undefined) {
+        drizzleInstance = drizzle(db)
+    }
+    return drizzleInstance
 }
+
+export type Ctx = Context<{ Bindings: CloudflareBindings }>;

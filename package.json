@@ -12,6 +12,10 @@
   "dependencies": {
     "@hono/swagger-ui": "^0.5.0",
     "@hono/zod-validator": "^0.4.2",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "argonia": "^1.0.0",
+    "comlink": "^4.4.2",
     "drizzle-orm": "^0.38.4",
     "hono": "^4.6.18",
     "hono-openapi": "^0.4.3",
