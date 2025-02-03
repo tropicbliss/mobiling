@@ -70,7 +70,7 @@ export async function scheduleTask(
     });
 }
 
-export async function deleteTask(db: D1Database, id: number) {
+export async function cancelTask(db: D1Database, id: number) {
     await getDb(db).delete(taskQueue).where(eq(taskQueue.id, id));
 }
 
