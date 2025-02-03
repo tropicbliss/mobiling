@@ -18,7 +18,7 @@ export const sessions = sqliteTable("sessions", {
 
 export const taskQueue = sqliteTable("task_queue", {
     id: integer("id").primaryKey(),
-    timestamp: integer("timestamp", { mode: "timestamp_ms" }).notNull(),
+    timestamp: integer("timestamp", { mode: "timestamp" }).notNull(),
     cron: text("cron").notNull(),
     payload: text("payload").notNull(),
     oneTime: integer("one_time", { mode: "boolean" }).notNull(),
