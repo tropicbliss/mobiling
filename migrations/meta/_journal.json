@@ -15,6 +15,27 @@
       "when": 1738003872732,
       "tag": "0001_real_supernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1738571004488,
+      "tag": "0002_tricky_red_ghost",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1738572678213,
+      "tag": "0003_amusing_redwing",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1738582032279,
+      "tag": "0004_heavy_clea",
+      "breakpoints": true
     }
   ]
 }
