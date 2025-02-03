@@ -1,4 +1,4 @@
-import { eq, lt } from "drizzle-orm";
+import { eq, lte } from "drizzle-orm";
 import { getDb } from "./db";
 import { TaskQueue, taskQueue } from "./schema";
 
@@ -28,7 +28,7 @@ export async function handleScheduledTask(
     ctx: ExecutionContext,
 ) {
     const pendingTasks = await getDb(env.DB).delete(taskQueue).where(
-        lt(taskQueue.timestamp, new Date(controller.scheduledTime)),
+        lte(taskQueue.timestamp, new Date(controller.scheduledTime)),
     ).returning();
     const results = await Promise.all(
         pendingTasks.map(async (task) => {
