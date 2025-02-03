@@ -12,7 +12,7 @@ export const sessions = sqliteTable("sessions", {
     id: text("id").primaryKey(),
     userId: integer("user_id").notNull().references(() => users.id),
     expiresAt: integer("expires_at", {
-        mode: "timestamp",
+        mode: "timestamp_ms",
     }).notNull(),
 });
 
