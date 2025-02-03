@@ -28,7 +28,7 @@ export async function handleScheduledTask(
     ctx: ExecutionContext,
 ) {
     const pendingTasks = await getDb(env.DB).delete(taskQueue).where(
-        lt(taskQueue.timestamp, new Date()),
+        lt(taskQueue.timestamp, new Date(controller.scheduledTime)),
     ).returning();
     const results = await Promise.all(
         pendingTasks.map(async (task) => {
@@ -50,7 +50,9 @@ export async function handleScheduledTask(
                 task.timestamp,
             ),
         }));
-    await getDb(env.DB).insert(taskQueue).values(nextTasks);
+    if (nextTasks.length > 0) {
+        await getDb(env.DB).insert(taskQueue).values(nextTasks);
+    }
 }
 
 export async function scheduleTask(
